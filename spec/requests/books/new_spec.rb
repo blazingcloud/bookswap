@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'create a book' do
   it "with an author and title" do
     visit new_book_path
-
+    save_and_open_page
     fill_in "book[title]", :with => 'The Book of the Book'
     fill_in "book[author]", :with => 'Idries Shah'
     click_on "SAVE"
