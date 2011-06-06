@@ -17,6 +17,17 @@ describe Person do
     p = Person.new(:given_name => "Eve", :surname => "Smith")
     p.full_name.should == "Eve Smith"
   end
-  
+  describe "book shelf"  do
+    it "should have a book shelf" do
+      p = Person.new(:given_name => "Eve", :surname => "Smith")
+      p.books << Book.new(:author => 'Idries Shah',
+                          :title => "Learning how to learn")
+      lambda do 
+        lambda do 
+          p.save
+        end.should change(BookShelf,:count).by(1)
+      end.should change(Book,:count).by(1)
+    end
+  end
 end
 
