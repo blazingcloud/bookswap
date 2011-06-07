@@ -8,7 +8,11 @@ describe 'edit' do
     person 
     visit %%/people/#{person.id}/edit%
   end
-  
+ 
+  it 'has a label for given name' do
+    page.should have_content("Given name")
+  end
+
   it 'can change the given_name of a person' do
     fill_in 'person[given_name]' , :with => 'Denna'
     click_on "SAVE"
