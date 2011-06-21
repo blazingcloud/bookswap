@@ -1,4 +1,6 @@
 Bookswap::Application.routes.draw do
+  devise_for :people
+
   resources :books
   resources :people
   root :to => "books#index"
