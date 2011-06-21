@@ -30,6 +30,7 @@ describe Book do
         b.save
       end.should change(BookShelf,:count).by(1)
     end.should change(Person,:count).by(1)
+
     b.owners.first.books.should include(b)
   end
 end
