@@ -24,12 +24,25 @@ describe PeopleController do
   # Person. As you add validations to Person, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {:surname => 'Elle', :given_name => 'Willow'}
+    {:surname => 'Elle', :given_name => 'Willow',
+     :email => 'el@lle.com' , :password => '123456', :password_confirmation => '123456'}
+  end
+
+  let(:person) do
+   Person.create!( :surname => 'Mrs Loged In User',
+                   :given_name => 'Willow',
+                   :email => '333@lle.com' ,
+                   :password => '123456',
+                   :password_confirmation => '123456')
+
+  end
+
+  before do
+    sign_in person
   end
 
   describe "GET index" do
     it "assigns all people as @people" do
-      person = Person.create! valid_attributes
       get :index
       assigns(:people).should eq([person])
     end
@@ -37,7 +50,6 @@ describe PeopleController do
 
   describe "GET show" do
     it "assigns the requested person as @person" do
-      person = Person.create! valid_attributes
       get :show, :id => person.id.to_s
       assigns(:person).should eq(person)
     end
@@ -52,7 +64,6 @@ describe PeopleController do
 
   describe "GET edit" do
     it "assigns the requested person as @person" do
-      person = Person.create! valid_attributes
       get :edit, :id => person.id.to_s
       assigns(:person).should eq(person)
     end
@@ -98,7 +109,6 @@ describe PeopleController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested person" do
-        person = Person.create! valid_attributes
         # Assuming there are no other people in the database, this
         # specifies that the Person created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -108,13 +118,11 @@ describe PeopleController do
       end
 
       it "assigns the requested person as @person" do
-        person = Person.create! valid_attributes
         put :update, :id => person.id, :person => valid_attributes
         assigns(:person).should eq(person)
       end
 
       it "redirects to the person" do
-        person = Person.create! valid_attributes
         put :update, :id => person.id, :person => valid_attributes
         response.should redirect_to(people_path)
       end
@@ -122,7 +130,6 @@ describe PeopleController do
 
     describe "with invalid params" do
       it "assigns the person as @person" do
-        person = Person.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Person.any_instance.stub(:save).and_return(false)
         put :update, :id => person.id.to_s, :person => {}
@@ -130,7 +137,6 @@ describe PeopleController do
       end
 
       it "re-renders the 'edit' template" do
-        person = Person.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Person.any_instance.stub(:save).and_return(false)
         put :update, :id => person.id.to_s, :person => {}
@@ -141,14 +147,12 @@ describe PeopleController do
 
   describe "DELETE destroy" do
     it "destroys the requested person" do
-      person = Person.create! valid_attributes
       expect {
         delete :destroy, :id => person.id.to_s
       }.to change(Person, :count).by(-1)
     end
 
     it "redirects to the people list" do
-      person = Person.create! valid_attributes
       delete :destroy, :id => person.id.to_s
       response.should redirect_to(people_url)
     end

@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+
   # GET /books
   # GET /books.xml
   def index

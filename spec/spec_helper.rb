@@ -7,7 +7,18 @@ require 'rspec/rails'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+
+module IntegrationHelpers
+  def integration_sign_in(email,password)
+    visit %%/people/sign_in%
+    fill_in 'person[email]', :with => email
+    fill_in 'person[password]', :with => password
+    click_on 'Sign in'
+  end
+end
 RSpec.configure do |config|
+  config.include Devise::TestHelpers, :type => :controller
+  config.include IntegrationHelpers, :type => :request
   # == Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
