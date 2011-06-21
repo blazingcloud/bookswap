@@ -1,12 +1,14 @@
 require 'spec_helper'
 describe 'edit' do
   let(:person) do
-    Person.create!(:given_name => 'Jean Luc', :surname => 'Picard')
+    Person.create!(:given_name => 'Jean Luc', :surname => 'Picard',:email => 'c@tng.com', :password => '123456', :password_confirmation => '123456')
   end
   
   before do
-    person 
+    person
+    integration_sign_in 'c@tng.com','123456'
     visit %%/people/#{person.id}/edit%
+    save_and_open_page
   end
  
   it 'has a label for given name' do
