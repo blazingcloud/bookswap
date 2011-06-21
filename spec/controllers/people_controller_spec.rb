@@ -24,7 +24,8 @@ describe PeopleController do
   # Person. As you add validations to Person, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {:surname => 'Elle', :given_name => 'Willow'}
+    {:surname => 'Elle', :given_name => 'Willow',
+     :email => 'el@lle.com' , :password => '123456', :password_confirmation => '123456'}
   end
 
   describe "GET index" do
